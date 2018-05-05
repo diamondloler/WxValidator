@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./wxValidator.js"></script>
+    <script>
+        var form = {
+            userName: 'zhangdahiz',
+            userEmail: '857276958@', //错
+            telPhone: '1326506618' //错
+        }
+
+        var vaildator = new wxValidator(form, {
+            userName: 'required',
+            userEmail: 'required|email',
+            telPhone: 'required|phone'
+        }, {
+            'required.userName': '请输入用户名',
+            'required.userEmail': '请输入邮箱地址',
+            'required.telPhone': '请输入电话号码',
+            'email.userEmail': '请输入正确的邮箱格式',
+            'phone.telPhone': '请输入正确的电话格式'
+        })
+        
+ 
+        console.log(vaildator.validate(), '整体验证')
+        
+        console.log(vaildator.getErrorAll(), '获取所有错误信息')
+
+        console.log(vaildator.getError('userEmail'), '获取userEmail错误信息')
+        
+        console.log(wxValidator.singleValid('85727698@qq', 'email', '你输入错了，帅哥'), '快速验证单一普通值')
+        
+        //注册自定义规则
+        wxValidator.register('fuckdj', function (val) {
+            return /fuckdj/.test(val)
+        })
+
+        console.log(wxValidator.singleValid('fuckdj', 'fuckdj', '我草, 你没输入fuckdj'), '验证自定义规则fuckdj')
+    </script>
+</body>
+</html>
