@@ -78,8 +78,7 @@
                 arr.push(flag)
   
               } catch (e) {
-                //如果添加了未定义规则，则该规则的验证结果为true,规避错误信息的输出
-                arr.push(true)
+                //如果添加了未定义规则，跳过这次循环。
                 continue;
               }
             }
