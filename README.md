@@ -53,6 +53,7 @@ var vaildator = new wxValidator(form, {
 - validator.validate 验证
 
   `validator.validate()`  验证这个form表单的数据，整体验证通过，返回true, 否则返回false；
+  
   注意之后的api均为在validate调用之后并返回false，才能使用
 
 - validator.getErrorALL 获取错误信息
@@ -68,14 +69,19 @@ var vaildator = new wxValidator(form, {
 - wxValidator.register
 
   `wxValidator.register(rule, handler)` 注册自定义验证规则
+  
   rule: type -> string 规则名
+  
   handler: type -> function 控制器 自带参数（val） 待验证的值， 返回类型为boolean
 
 - wxValidator.singleValid
 
   `wxValidator.singleValid(val, rule, message)` 单一普通值快速验证
+  
   val： type -> 基本数据类型
+  
   rule： type -> string 验证规则
+  
   message： type ->string 错误信息
 
 
