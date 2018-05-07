@@ -63,7 +63,7 @@ var vaildator = new wxValidator(form, {
 
   `validator.getError(key)` key: type -> string 通过src的key获取对应的错误信息
 
-######静态方法
+### 静态方法
 
 - wxValidator.register
 
@@ -80,7 +80,7 @@ var vaildator = new wxValidator(form, {
 
 
 
-###License
+### License
 
 MIT
 
