@@ -57,7 +57,7 @@ var vaildator = new wxValidator(form, {
 
 - validator.getErrorALL 获取错误信息
 
-  `validator.getErrorALL()` 注意有在调用validator.validate并返回false，才能获取所有的错误信息。
+  `validator.getErrorALL()` 
 
 - validator.getError 获取错误信息
 
