@@ -2,13 +2,13 @@
 
 > 一款集轻量、易用、扩展性强的JS表单验证组件
 
-### Usage
+## Usage
 
-##### 构造器
+#### 构造器
 
 `wxValidator(src, rules, messages)`
 
-###### arguments
+##### arguments
 
 1. src: `type->object`   待验证的数据
 
@@ -24,7 +24,7 @@
 
 3. messages: ``type->object`   错误信息，命名的方式为     规则名 \+ '.' \+ 数据对象的 key
 
-###### 创建wxValidator实例 ，栗子如下：
+##### 创建wxValidator实例 ，栗子如下：
 
 ```javascript
 var form = {
@@ -48,7 +48,7 @@ var vaildator = new wxValidator(form, {
 
 
 
-### ApiReference
+## ApiReference
 
 - validator.validate 验证
 
@@ -64,7 +64,7 @@ var vaildator = new wxValidator(form, {
 
   `validator.getError(key)` key: type -> string 通过src的key获取对应的错误信息
 
-### 静态方法
+## 静态方法
 
 - wxValidator.register
 
@@ -86,7 +86,7 @@ var vaildator = new wxValidator(form, {
 
 
 
-### License
+## License
 
 MIT
 
