@@ -50,6 +50,8 @@ var vaildator = new wxValidator(form, {
 
 ## ApiReference
 
+### 实例方法
+
 - validator.validate 验证
 
   `validator.validate()`  验证这个form表单的数据，整体验证通过，返回true, 否则返回false；
@@ -64,7 +66,7 @@ var vaildator = new wxValidator(form, {
 
   `validator.getError(key)` key: type -> string 通过src的key获取对应的错误信息
 
-## 静态方法
+### 静态方法
 
 - wxValidator.register
 
