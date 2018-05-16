@@ -129,7 +129,7 @@
         return val != '' && true
       },
       'phone': function (val) {
-        return /[0-9]{11}/.test(val)
+        return /^[0-9]{11}$/.test(val)
       },
       'date': function (val) {
         return /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.test(val)
