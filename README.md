@@ -154,6 +154,6 @@ var vaildator = new wxValidator(form, {
 
 
 ## License
-NULL
+
 Brought to you by 857276958@qq.com   欢迎交流
 
