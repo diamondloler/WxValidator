@@ -105,7 +105,7 @@ var vaildator = new wxValidator(form, {
 ```html
 <div class="form-group">
     <input type="text" class="form-control" v-model="name" placeholder="名字" />
-    <span style="color:red;" v-if="validation && validation.allErrors &&    		    validation.allErrors['name']">
+    <span style="color:red;" v-if="validation && validation.allErrors && validation.allErrors['name']">
         {{validation.allErrors['name'][0]}}
     </span>
 </div>
@@ -140,7 +140,8 @@ var vaildator = new wxValidator(form, {
       }，
       check() {
           this.createValidator();
-          //当调用validation.validate返回false时，会更新allError对象数据，稍后框架会异步更新   			 //vnodes，错误信息就会呈现在您的屏幕
+          //当调用validation.validate返回false时，会更新allError对象数据，稍后框架会异步更新
+          //vnodes，错误信息就会呈现在您的屏幕
           if (!this.validation.validate()) {
               
           }
