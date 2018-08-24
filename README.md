@@ -140,7 +140,7 @@ var vaildator = new wxValidator(form, {
       }，
       check() {
           this.createValidator();
-          //当调用validation.validate返回false时，会更新allError对象数据，稍后框架会异步更新 
+          //当调用validation.validate返回false时，会更新allErrors对象数据，稍后框架会异步更新 
           //vnodes，错误信息就会呈现在您的屏幕
           if (!this.validation.validate()) {
               
