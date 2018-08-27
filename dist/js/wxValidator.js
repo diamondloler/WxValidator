@@ -83,7 +83,7 @@
               errorMsg = messages[singleRule + '.' + key];
 
               //注入错误信息
-              ( this.allErrors[key] || (this.allErrors[key] = []) ).push(errorMsg)
+              ( this.allErrors[key] || (this.allErrors[key] = []) ).push(errorMsg || '默认错误(未添加自定义错误信息)')
             }
 
           }
