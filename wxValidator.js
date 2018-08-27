@@ -42,16 +42,6 @@
      */
     rules = str2array(rules)
 
-
-    /**
-     * 验证结果信息 经过validate（）处理后 跟 rules对象的key保持一致 like this
-     * result = {
-     *    name: [true], index 0 代表 ‘required’规则的验证结果
-     *    phone: [true, false] index 0 代表 ‘required’规则的验证结果 index 1 代表‘phone’规则的验证结果
-     * }
-     */
-    var result = Object.create(null)
-
     
     //所有错误信息
     this.allErrors = Object.create(null)
@@ -104,8 +94,6 @@
             arr.push(flag)
           }
 
-          //将rules对象中每个key的一系列验证结果映射到result对象
-          result[key] = arr
         }
       }
 
