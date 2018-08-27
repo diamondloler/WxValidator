@@ -76,6 +76,8 @@
             } catch (e) {
               //移除未注册的规则
               ruleList.splice(i, 1)
+              
+              console.warn(e)
 
               //如果添加了未定义规则，跳过这次循环。
               continue;
