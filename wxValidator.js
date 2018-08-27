@@ -55,6 +55,9 @@
     
     //所有错误信息
     this.allErrors = Object.create(null)
+    
+    //bind instance
+    var that = this
       
     /**
      * 验证
@@ -83,13 +86,19 @@
             } catch (e) {
               //移除未注册的规则
               ruleList.splice(i, 1)
-              
+
               //如果添加了未定义规则，跳过这次循环。
               continue;
             }
 
             //假如有错，全局错误就是false
-            flag == false && (globalFlag = false)
+            if (flag === false) {
+              globalFlag = false
+
+              //注入错误信息
+              var errorMsg = messages[singleRule + '.' + key];
+              ( this.allErrors[key] || (this.allErrors[key] = []) ).push(errorMsg)
+            } 
 
             //记录每个规则对应的验证结果
             arr.push(flag)
@@ -99,8 +108,6 @@
           result[key] = arr
         }
       }
-
-      this.allErrors = getErrorAll()
 
       return globalFlag
     }
@@ -112,40 +119,7 @@
      * @returns {Mixed} 如存在错误，返回错误信息数组，否则返回null
      */
     this.getError = function (key) {
-      var resultList = result[key] // 当前验证数据通过规则验证得出结果集合
-      var ruleList = rules[key] // 当前验证数据的验证规则集合
-      var len = ruleList.length // 以当前验证数据的规则队列长度为基准
-      var msgList = []
-
-      for (var i = 0; i < len; i++) {
-        var singleRuleResult = resultList[i] // boolean
-        var singleRuleKey = ruleList[i] // rule
-
-        // 验证不通过，记录相应的自定义错误信息
-        if (!singleRuleResult) {
-          msgList.push(messages[singleRuleKey + '.' + key])
-        }
-      }
-
-      return msgList.length > 0 ? msgList : null
-    }
-    
-    var that = this
-
-    /**
-     * 获取所有错误信息
-     * @return {Object}
-     */
-     function getErrorAll () {
-      var msgInfo = {}
-      var result
-
-      for (var key in rules) {
-        result = that.getError(key)
-        result !== null && (msgInfo[key] = result)
-      }
-
-      return msgInfo
+      return that.allErrors[key] || null
     }
 
   }
