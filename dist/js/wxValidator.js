@@ -4,7 +4,6 @@
       return factory(root);
     });
   } else if (typeof exports === "object" && typeof module !== "undefined") {
-    console.log('hello')
     module.exports = factory(root);
   } else {
     root.wxValidator = factory(root);
@@ -42,13 +41,13 @@
      */
     rules = str2array(rules)
 
-    
+
     //所有错误信息
     this.allErrors = Object.create(null)
-    
+
     //bind instance
     var that = this
-      
+
     /**
      * 验证
      * @return {Boolean}
@@ -58,44 +57,36 @@
 
       for (var key in src) {
         var i = 0, //用来loop
-          singleRule, //单个验证的rule
-          arr = [] //记录rules对象中每个key,对应的每个rule所验证的结果
+          singleRule //单个验证的rule
+         
 
         var ruleList = rules[key]
         var value = src[key]
-        var flag
+        var flag, fn, errorMsg
 
         if (typeof ruleList !== 'undefined') {
           while (singleRule = ruleList[i++]) {
+            fn = this.getCheckFunc(singleRule)
 
-            //为了防止使用者添加未注册的验证规则，用try catch控制整个流程
-            try {
-
-              //获得每个验证规则的结果
-              flag = this.getCheckFunc(singleRule)(value)
-            } catch (e) {
-              //移除未注册的规则
+            //使用者添加未注册的验证规则, 直接移除，进入下一个loop
+            if (!fn) {
               ruleList.splice(i, 1)
-              
-              console.warn(e)
-
-              //如果添加了未定义规则，跳过这次循环。
+              console.warn('Rule name: \"' + singleRule + '\", please don\'t add the rule of unregistered for data that it be verify')
               continue;
             }
 
+            flag = fn(value)
+           
             //假如有错，全局错误就是false
             if (flag === false) {
               globalFlag = false
+              errorMsg = messages[singleRule + '.' + key];
 
               //注入错误信息
-              var errorMsg = messages[singleRule + '.' + key];
               ( this.allErrors[key] || (this.allErrors[key] = []) ).push(errorMsg)
-            } 
+            }
 
-            //记录每个规则对应的验证结果
-            arr.push(flag)
           }
-
         }
       }
 
@@ -145,7 +136,8 @@
    * @param {Function} handler 控制器
    */
   wxValidator.register = function (ruleName, handler) {
-    this.prototype.ruleMethods[ruleName] = handler
+    if (typeof handler !== 'function') throw new Error('The handler must be a function');
+    this.prototype.ruleMethods[ruleName] = handler;
   }
 
   /**
@@ -160,6 +152,7 @@
     } catch (e) {
       throw new Error('wxValidator.singleValid can not call the rule of undefined')
     }
+
     return {
       result: result,
       msg: (result === false && message) || '正确'
@@ -169,4 +162,3 @@
   return wxValidator
 
 })
-
