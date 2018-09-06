@@ -1,14 +1,12 @@
 (function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(function () {
-      return factory(root);
-    });
-  } else if (typeof exports === "object" && typeof module !== "undefined") {
-    module.exports = factory(root);
+  if (typeof module === "object") {
+    module.exports = factory();
+  } else if (typeof define === 'function' && define.amd) {
+    define([], factory);
   } else {
-    root.wxValidator = factory(root);
+    root.wxValidator = factory();
   }
-})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function (window) {
+})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function () {
 
 
 
@@ -25,7 +23,7 @@
      * @param {Object} rules 
      * @returns {Object}
      */
-    var str2array = function (rules) {
+    var str2Array = function (rules) {
       for (var key in rules) {
         rules[key] = rules[key].split('|')
       }
@@ -39,7 +37,7 @@
      *    phone: ['required', 'phone']
      * }
      */
-    rules = str2array(rules)
+    rules = str2Array(rules)
 
 
     //所有错误信息
@@ -71,7 +69,11 @@
             //使用者添加未注册的验证规则, 直接移除，进入下一个loop
             if (!fn) {
               ruleList.splice(i, 1)
-              console.warn('Rule name: \"' + singleRule + '\", please don\'t add the rule of unregistered for data that it be verify')
+              console.warn(
+                'Rule name: \"' + 
+                singleRule + 
+                '\", please don\'t add the rule of unregistered for data that it be verify'
+              )
               continue;
             }
 

@@ -1,14 +1,12 @@
 (function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(function () {
-      return factory(root);
-    });
-  } else if (typeof exports === "object" && typeof module !== "undefined") {
-    module.exports = factory(root);
+  if (typeof module === "object") {
+    module.exports = factory();
+  } else if (typeof define === 'function' && define.amd) {
+    define([], factory);
   } else {
-    root.wxValidator = factory(root);
+    root.wxValidator = factory();
   }
-})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function (window) {
+})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function () {
 
 
 
