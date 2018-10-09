@@ -110,7 +110,7 @@
   //基础验证方法系列
   wxValidator.prototype.ruleMethods = {
     'required': function (val) {
-      return val !== '' && true
+      return !(/^\s*$/).test(val)
     },
     'phone': function (val) {
       return /[0-9]{11}/.test(val)
