@@ -12,7 +12,7 @@
    * helper
    * 格式化对象，如：key值由'required|phone'变成 ['required', 'phone']
    * @param {Object} rules 
-   * @returns {Object}
+   * @return {Object}
    */
   var str2Array = function (rules) {
       for (var key in rules) {
