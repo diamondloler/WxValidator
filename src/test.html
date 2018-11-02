@@ -15,7 +15,7 @@
             telPhone: '1326506618' //错
         }
 
-        var vaildator = new wxValidator(form, {
+        var vaildator = new WxValidator(form, {
             userName: 'required',
             userEmail: 'required|email|fuckDj',
             telPhone: 'required|phone'
@@ -34,14 +34,14 @@
 
         console.log(vaildator.getError('userEmail'), '获取userEmail错误信息')
         
-        console.log(wxValidator.singleValid('85727698@qq', 'email', '你输入错了，帅哥'), '快速验证单一普通值')
+        console.log(WxValidator.singleValid('85727698@qq', 'email', '你输入错了，帅哥'), '快速验证单一普通值')
         
         //注册自定义规则
-        wxValidator.register('fuckdj', function (val) {
+        WxValidator.register('fuckdj', function (val) {
             return /fuckdj/.test(val)
         })
 
-        console.log(wxValidator.singleValid('fuckdj', 'fuckdj', '我草, 你没输入fuckdj'), '验证自定义规则fuckdj')
+        console.log(WxValidator.singleValid('fuckdj', 'fuckdj', '我草, 你没输入fuckdj'), '验证自定义规则fuckdj')
     </script>
 </body>
 </html>

@@ -5,12 +5,12 @@ var gulp = require('gulp'),
 
 
 gulp.task('source', function() {
-    return gulp.src(['./wxValidator.js'])
+    return gulp.src(['./src/wxValidator.js'])
         .pipe(gulp.dest('./dist/js'))
 })
 
 gulp.task('default', ['source'], function () {
-    return gulp.src(['./wxValidator.js'])
+    return gulp.src(['./src/wxValidator.js'])
         .pipe(sourcemaps.init({
             loadMaps: true
         }))

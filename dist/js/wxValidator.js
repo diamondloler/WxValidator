@@ -12,7 +12,7 @@
    * helper
    * 格式化对象，如：key值由'required|phone'变成 ['required', 'phone']
    * @param {Object} rules 
-   * @returns {Object}
+   * @return {Object}
    */
   var str2Array = function (rules) {
       for (var key in rules) {
@@ -40,7 +40,7 @@
           return !(/^\s*$/).test(val)
       },
       'phone': function (val) {
-          return /[0-9]{11}/.test(val)
+          return /^[0-9]{11}$/.test(val)
       },
       'date': function (val) {
           return /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.test(val)

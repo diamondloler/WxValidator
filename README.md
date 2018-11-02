@@ -1,12 +1,16 @@
-# **wxValidator**
+# **WxValidator**
 
 > 一款集轻量、易用、扩展性强的JS表单验证组件
+
+## Install
+
+`npm i wxvalidator -S`
 
 ## Usage
 
 #### 构造器
 
-`wxValidator(src, rules, messages)`
+`WxValidator(src, rules, messages)`
 
 ##### arguments
 
@@ -24,7 +28,7 @@
 
 3. messages: `object`   错误信息，命名的方式为     规则名 \+ '.' \+ 数据对象的 key
 
-##### 创建wxValidator实例 ，栗子如下：
+##### 创建WxValidator实例 ，栗子如下：
 
 ```javascript
 var form = {
@@ -33,7 +37,7 @@ var form = {
     telPhone: '88888888666'
 }
 
-var vaildator = new wxValidator(form, {
+var vaildator = new WxValidator(form, {
     userName: 'required',
     userEmail: 'required|email',
     telPhone: 'required|phone'
@@ -77,17 +81,17 @@ var vaildator = new wxValidator(form, {
 
 ### 静态方法
 
-- wxValidator.register
+- WxValidator.register
 
-  `wxValidator.register(rule, handler)` 注册自定义验证规则
+  `WxValidator.register(rule, handler)` 注册自定义验证规则
 
   rule: `String` 规则名
 
   handler: `Function` 控制器 参数 `val` 待验证的值， 返回类型为`Boolean`
 
-- wxValidator.singleValid
+- WxValidator.singleValid
 
-  `wxValidator.singleValid(val, rule, message)` 单一普通值快速验证 ，`return boolean`
+  `WxValidator.singleValid(val, rule, message)` 单一普通值快速验证 ，`return boolean`
 
   val： `Mixed` 待验证数据
 
@@ -126,7 +130,7 @@ var vaildator = new wxValidator(form, {
   }, 
   methods: {
       createValidator() {
-          this.validation = new wxValidator(
+          this.validation = new WxValidator(
               {
                   name: this.name
               },

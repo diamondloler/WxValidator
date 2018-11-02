@@ -1,10 +1,10 @@
 (function (root, factory) {
-  if (typeof module === "object") {
+  if (typeof module === "object" && exports) {
       module.exports = factory();
   } else if (typeof define === 'function' && define.amd) {
       define([], factory);
   } else {
-      root.wxValidator = factory();
+      root.WxValidator = factory();
   }
 })(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function () {
 
@@ -27,7 +27,7 @@
    * @param {Object} rules 与src键名一致的规则对象
    * @param {Object} messages 错误信息对象，命名的方式为 规则名 + '.' + 数据对象的 key
    */
-  var wxValidator = function (src, rules, messages) {
+  var WxValidator = function (src, rules, messages) {
       this.rules = str2Array(rules)
       this.src = src 
       this.messages = messages
@@ -35,7 +35,7 @@
   }
 
   //基础验证方法系列
-  wxValidator.prototype.ruleMethods = {
+  WxValidator.prototype.ruleMethods = {
       'required': function (val) {
           return !(/^\s*$/).test(val)
       },
@@ -54,7 +54,7 @@
    * 验证
    * @return {Boolean}
    */
-  wxValidator.prototype.validate = function() {
+  WxValidator.prototype.validate = function() {
       var globalFlag = true //整体通过验证的标志
 
       for (var key in this.src) {
@@ -100,7 +100,7 @@
    * @param {String} rule 
    * @return {Function}
    */
-  wxValidator.prototype.getCheckFunc = function (rule) {
+  WxValidator.prototype.getCheckFunc = function (rule) {
       return this.ruleMethods[rule]
   }
 
@@ -110,7 +110,7 @@
    * @param {String} key 
    * @returns {Array} 如存在错误，返回错误信息数组，否则返回null
    */
-  wxValidator.prototype.getError = function (key) {
+  WxValidator.prototype.getError = function (key) {
       return this.allErrors[key] || null
   }
 
@@ -119,7 +119,7 @@
    * @param {String} ruleName 规则名
    * @param {Function} handler 控制器
    */
-  wxValidator.register = function (ruleName, handler) {
+  WxValidator.register = function (ruleName, handler) {
       if (typeof handler !== 'function') throw new Error('The handler must be a function');
       this.prototype.ruleMethods[ruleName] = handler;
   }
@@ -131,11 +131,11 @@
    * @param {String} message 对应的错误信息
    * @return {Object} 结果
    */
-  wxValidator.singleValid = function (val, rule, message) {
+  WxValidator.singleValid = function (val, rule, message) {
       try {
           var result = this.prototype.getCheckFunc(rule)(val)
       } catch (e) {
-          throw new Error('wxValidator.singleValid can not call the rule of undefined')
+          throw new Error('WxValidator.singleValid can not call the rule of undefined')
       }
 
       return {
@@ -144,6 +144,6 @@
       }
   }
 
-  return wxValidator
+  return WxValidator
 
 })
