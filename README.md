@@ -99,6 +99,8 @@ var vaildator = new WxValidator(form, {
 
   message： `String` 错误信息
 
+  返回一个结果对象：{ result: {Boolean},  msg: {String}​ }
+
 
 ## 在MVVM框架中的用法（vue, wepy, mpvue...)
 
