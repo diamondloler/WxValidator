@@ -62,12 +62,13 @@
         var flag;
         var fn;
         var errorMsg;
+        var i;
 
         for (var key in this.src) {
             ruleList = this.rules[key];
             value = this.src[key];
 
-            var i = 0 //用来loop
+            i = 0 //用来loop
 
             if (typeof ruleList !== 'undefined') {
                 while (singleRule = ruleList[i++]) {
