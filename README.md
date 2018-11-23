@@ -1,4 +1,4 @@
-# **WxValidator** [![Build Status](https://travis-ci.org/diamondloler/wxValidator.svg?branch=master)](https://travis-ci.org/diamondloler/wxValidator)
+# **WxValidator** [![Build Status](https://travis-ci.org/diamondloler/WxValidator.svg?branch=master)](https://travis-ci.org/diamondloler/WxValidator)
 
 > 一款集轻量、易用、扩展性强的JS表单验证组件
 
