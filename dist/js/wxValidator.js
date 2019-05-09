@@ -31,16 +31,15 @@
         this.rules = str2Array(rules)
         this.src = src
         this.messages = messages
-        this.allErrors = Object.create(null)
+        this.collectedErrors = Object.create(null)
     }
 
-    //基础验证方法系列
     WxValidator.prototype.ruleMethods = {
         'required': function (val) {
             return !(/^\s*$/).test(val)
         },
         'phone': function (val) {
-            return /^[0-9]{11}$/.test(val)
+            return /^1[34578]\d{9}$/.test(val)
         },
         'date': function (val) {
             return /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.test(val)
@@ -50,79 +49,77 @@
         }
     }
 
+    WxValidator.prototype.getValue = function (key) {
+        return this.src[key]
+    }
+
     /**
      * 验证
      * @return {Boolean}
      */
     WxValidator.prototype.validate = function () {
-        var globalFlag = true; //整体通过验证的标志
+        var allTrue = true;
         var ruleList;
         var value;
-        var singleRule; //单个验证的rule
+        var ruleName;
         var flag;
         var fn;
-        var errorMsg;
+        var i;
 
         for (var key in this.src) {
             ruleList = this.rules[key];
-            value = this.src[key];
+            value = this.getValue(key);
+            i = 0;
 
-            var i = 0 //用来loop
+            if (value == null) return;
 
             if (typeof ruleList !== 'undefined') {
-                while (singleRule = ruleList[i++]) {
-                    fn = this.getCheckFunc(singleRule)
+                while (ruleName = ruleList[i++]) {
+                    fn = this.getCheckFunc(ruleName)
 
-                    //使用者添加未注册的验证规则, 直接移除，进入下一个loop
                     if (!fn) {
-                        ruleList.splice(i, 1)
-                        console.warn(
-                            'Rule name: \"' +
-                            singleRule +
-                            '\", please don\'t add the rule of unregistered for data that it be verify'
-                        )
+                        removeRuleAndWarn(ruleList, i)
                         continue;
                     }
 
                     flag = fn(value)
 
                     if (flag === false) {
-                        globalFlag = false
-                        errorMsg = this.messages[singleRule + '.' + key];
-                        (this.allErrors[key] || (this.allErrors[key] = [])).push(errorMsg || '默认错误(未添加自定义错误信息)')
+                        allTrue = false
+                        collectError(this, key, ruleName)
                     }
-
                 }
             }
         }
 
-        return globalFlag
+        return allTrue
     }
 
-    /**
-     * 通过验证规则，获取验证方法
-     * @param {String} rule 
-     * @return {Function}
-     */
+
+    function removeRuleAndWarn(ruleList, index) {
+        var currRule = ruleList[index]
+        ruleList.splice(index, 1)
+        console.warn(
+            'Rule name: \"' +
+            currRule +
+            '\", please don\'t add the rule of unregistered for data that it be verify'
+        )
+    }
+
+    function collectError(vm, key, ruleName) {
+        var errKey = ruleName + '.' + key;
+        var errorMsg = vm.messages[errKey];
+        (vm.collectedErrors[key] || (vm.collectedErrors[key] = [])).push(errorMsg || '默认错误');
+    }
+
     WxValidator.prototype.getCheckFunc = function (rule) {
         return this.ruleMethods[rule]
     }
 
-
-    /**
-     * 获取单个key的错误信息
-     * @param {String} key 
-     * @returns {Array} 如存在错误，返回错误信息数组，否则返回null
-     */
     WxValidator.prototype.getError = function (key) {
-        return this.allErrors[key] || null
+        return this.collectedErrors[key] || null
     }
 
-    /**
-     * 注册验证规则
-     * @param {String} ruleName 规则名
-     * @param {Function} handler 控制器
-     */
     WxValidator.register = function (ruleName, handler) {
         if (typeof handler !== 'function') throw new Error('The handler must be a function');
         this.prototype.ruleMethods[ruleName] = handler;
@@ -147,6 +144,7 @@
             msg: (result === false && message) || '正确'
         }
     }
+
 
     return WxValidator
 

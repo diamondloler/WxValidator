@@ -62,14 +62,14 @@ var vaildator = new WxValidator(form, {
 
   注意之后的实例其他api均为在validate调用之后并返回false，才能正常使用
 
-- validator.allErrors  全部错误信息对象 
+- validator.collectedErrors 错误信息对象 
 
   默认为空对象{}，调用 validator.validate返回false后，数据才会更新
 
   数据结构如下：
 
   ```javascript
-  allErrors = {
+  validator.collectedErrors  = {
       phone: ['请输入手机号码', '手机号码格式不正确'],
       name: ['请输入名字']
   }

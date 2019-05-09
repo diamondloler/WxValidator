@@ -1,9 +1,6 @@
 const WxValidator = require('../src/wxValidator')
 
-
-
-
-describe('This is a testing for Wxvalidator when occured error', () => {
+describe('This is a testing for Wxvalidator when error has occured', () => {
     var form = {
         userName: '', // 错
         userEmail: '857276958@', // 错
@@ -26,8 +23,8 @@ describe('This is a testing for Wxvalidator when occured error', () => {
         expect(validator.validate()).toBe(false)
     })
 
-    it('validator.allErrors existed property', () => {
-        expect(Object.keys(validator.allErrors).length).toBe(3)
+    it('validator.collectedErrors existed property', () => {
+        expect(Object.keys(validator.collectedErrors).length).toBe(3)
     })
 
     it('validator.getError', () => {
@@ -47,7 +44,7 @@ describe('This is a testing for Wxvalidator when occured error', () => {
 })
 
 
-describe('This is a testing for WxValidator when never error be occured', () => {
+describe('This is a testing for WxValidator when error has never occured', () => {
     var form = {
         userName: 'Alex', // pass
         userEmail: '857276958@qq.com', // pass
@@ -70,7 +67,7 @@ describe('This is a testing for WxValidator when never error be occured', () => 
         expect(validator.validate()).toBe(true)
     })
 
-    it('validator.allErrors should without any property', () => {
-        expect(Object.keys(validator.allErrors).length).toBe(0)
+    it('validator.collectedErrors should without any property', () => {
+        expect(Object.keys(validator.collectedErrors).length).toBe(0)
     })
 })
